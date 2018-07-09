@@ -1,0 +1,27 @@
+:jdkversion: 1.8
+:org: marcingrzejszczak
+:repo: spring-cloud-repository-management
+:branch: master
+
+image::https://circleci.com/gh/{org}/{repo}/tree/{branch}.svg?style=svg["CircleCI", link="https://circleci.com/gh/{org}/{repo}/tree/{branch}"]
+image::https://codecov.io/gh/{org}/{repo}/branch/{branch}/graph/badge.svg["codecov", link="https://codecov.io/gh/{org}/{repo}"]
+
+:toc: left
+:toclevels: 8
+:nofooter:
+
+== Spring Cloud Repository Management
+
+Small project to iterate over and fetch files from different repository
+management tools like Github, Gitlab, BitBucket
+
+
+TODO:
+
+[ ] - add more tests for GitHub
+
+[ ] - add support for GitLab
+
+[ ] - add support for BitBucket
+
+[ ] - integrate with Spring Cloud Pipelines
