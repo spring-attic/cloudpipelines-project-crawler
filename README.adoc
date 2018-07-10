@@ -18,10 +18,12 @@ management tools like Github, Gitlab, BitBucket
 
 TODO:
 
-[ ] - add more tests for GitHub
-
-[ ] - add support for GitLab
-
-[ ] - add support for BitBucket
-
-[ ] - integrate with Spring Cloud Pipelines
+* allow overriding of project names (options -> project('name', 'new_name'))
+* allow overriding project branches (options -> projectBranch('name', 'new_branch'))
+* allow excluding project names (e.g. regex for github.io)
+* allow manually add project names
+* depending on a switch use `git@...` or `https:...` to append to the full URL
+* add more tests for GitHub
+* add support for GitLab
+* add support for BitBucket
+* integrate with Spring Cloud Pipelines
