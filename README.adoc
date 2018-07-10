@@ -18,6 +18,7 @@ management tools like Github, Gitlab, BitBucket
 
 TODO:
 
+* allow explicit defining of a repository manager (e.g. BitBucket might be installed locally)
 * allow overriding of project names (options -> project('name', 'new_name'))
 * allow overriding project branches (options -> projectBranch('name', 'new_branch'))
 * allow excluding project names (e.g. regex for github.io)
