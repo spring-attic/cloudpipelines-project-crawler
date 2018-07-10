@@ -17,7 +17,7 @@ public interface RepositoryManagement {
 	 * @param org - for the given organization
 	 * @return list of corresponding repositories
 	 */
-	default List<String> repositories(String org) {
+	default List<Repository> repositories(String org) {
 		return Collections.emptyList();
 	}
 

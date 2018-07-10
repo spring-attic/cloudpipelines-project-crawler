@@ -27,7 +27,7 @@ public final class RepositoryManagers implements RepositoryManagement {
 		this.options = options;
 	}
 
-	@Override public List<String> repositories(String org) {
+	@Override public List<Repository> repositories(String org) {
 		return firstMatching().repositories(org);
 	}
 

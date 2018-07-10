@@ -1,20 +1,7 @@
 package org.springframework.cloud.repositorymanagement;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.nio.file.Files;
 import java.util.List;
 
-import com.jcabi.github.Repo;
-import com.jcabi.github.Repos;
-import com.jcabi.github.mock.MkGithub;
-import com.jcabi.github.mock.MkStorage;
-import org.apache.commons.io.FileUtils;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static java.nio.file.Files.createTempDirectory;
@@ -39,11 +26,28 @@ class GithubRepositoryManagementBuilderTests {
 	}
 
 	@Test
+	void should_return_true_when_repositories_is_github_as_enum() {
+		then(githubBuilder().build(OptionsBuilder.builder().rootUrl("foo")
+				.repositories(Repositories.GITHUB).build())).isNotNull();
+	}
+
+	@Test
+	void should_return_true_when_repositories_is_github() {
+		then(githubBuilder().build(OptionsBuilder.builder().rootUrl("foo")
+				.repositories("github").build())).isNotNull();
+	}
+
+	@Test
 	void should_return_true_when_url_contains_github() {
-		then(new GithubRepositoryManagementBuilder() {
+		then(githubBuilder().build(OptionsBuilder.builder()
+				.rootUrl("http://github").build())).isNotNull();
+	}
+
+	private GithubRepositoryManagementBuilder githubBuilder() {
+		return new GithubRepositoryManagementBuilder() {
 			@Override RepositoryManagement createNewRepoManagement(Options options) {
 				return new RepositoryManagement() {
-					@Override public List<String> repositories(String org) {
+					@Override public List<Repository> repositories(String org) {
 						return null;
 					}
 
@@ -53,7 +57,7 @@ class GithubRepositoryManagementBuilderTests {
 					}
 				};
 			}
-		}.build(OptionsBuilder.builder().rootUrl("http://github").build())).isNotNull();
+		};
 	}
 
 }

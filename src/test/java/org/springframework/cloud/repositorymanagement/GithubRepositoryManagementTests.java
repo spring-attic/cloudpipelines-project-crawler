@@ -37,7 +37,7 @@ class GithubRepositoryManagementTests {
 		this.repoXml = new File(this.folder, "foo.xml");
 		this.github = new MkGithub(new MkStorage.InFile(this.repoXml), "jeff");
 		this.repo = createSleuthRepo(this.github);
-		this.sut = new GithubRepositoryManagement(this.github);
+		this.sut = new GithubRepositoryManagement(this.github, OptionsBuilder.builder().build());
 	}
 
 	@AfterEach
@@ -47,13 +47,15 @@ class GithubRepositoryManagementTests {
 
 	@Test
 	void should_return_a_list_of_names_of_repos_for_an_org() {
-		then(new GithubRepositoryManagement(this.github) {
+		then(new GithubRepositoryManagement(this.github,
+				OptionsBuilder.builder().exclude("^.*github\\.io$").build()) {
 			@Override String orgRepos(String org) throws IOException {
 				URL resource = GithubRepositoryManagementTests.class
 						.getResource("/spring_cloud_repos.json");
 				return new String(Files.readAllBytes(new File(resource.getFile()).toPath()));
 			}
-		}.repositories("jeff")).hasSize(29).doesNotContain("spring-cloud.github.io");
+		}.repositories("jeff")).hasSize(29)
+				.extracting("name").doesNotContain("spring-cloud.github.io");
 	}
 
 	@Test
@@ -68,7 +70,7 @@ class GithubRepositoryManagementTests {
 		file.createNewFile();
 		Files.write(file.toPath(), "hello: world".getBytes());
 
-		then(new GithubRepositoryManagement(this.github) {
+		then(new GithubRepositoryManagement(this.github, OptionsBuilder.builder().build()) {
 			@Override InputStream getDescriptor(String org, String repo, String branch,
 					String filePath) throws IOException {
 				return new FileInputStream(file);

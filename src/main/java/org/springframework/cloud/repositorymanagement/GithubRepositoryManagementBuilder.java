@@ -2,8 +2,6 @@ package org.springframework.cloud.repositorymanagement;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -26,7 +24,10 @@ class GithubRepositoryManagementBuilder implements RepositoryManagementBuilder {
 
 	@Override public RepositoryManagement build(Options options) {
 		boolean applicable = isApplicable(options.rootUrl);
-		if (!applicable) {
+		if (applicable) {
+			return createNewRepoManagement(options);
+		}
+		if (options.repositories != Repositories.GITHUB) {
 			return null;
 		}
 		return createNewRepoManagement(options);
@@ -39,7 +40,7 @@ class GithubRepositoryManagementBuilder implements RepositoryManagementBuilder {
 	private boolean isApplicable(String url) {
 		boolean applicable = StringUtils.isNotBlank(url) && url.contains("github");
 		if (log.isDebugEnabled()) {
-			log.debug("URL [{}] is applicable [{}]", applicable);
+			log.debug("URL [{}] is applicable [{}]", url, applicable);
 		}
 		return applicable;
 	}
@@ -51,10 +52,17 @@ class GithubRepositoryManagement implements RepositoryManagement {
 
 	private final Github github;
 	private final ObjectMapper objectMapper = new ObjectMapper();
+	private final Options options;
 
 	GithubRepositoryManagement(Options options) {
 		this.github = new RtGithub(github(options)
 				.entry().through(RetryWire.class));
+		this.options = options;
+	}
+
+	GithubRepositoryManagement(Github github, Options options) {
+		this.github = github;
+		this.options = options;
 	}
 
 	private RtGithub github(Options options) {
@@ -67,18 +75,15 @@ class GithubRepositoryManagement implements RepositoryManagement {
 		throw new IllegalStateException("Token and username are blank. Pick either of them");
 	}
 
-	GithubRepositoryManagement(Github github) {
-		this.github = github;
-	}
-
-	@Override public List<String> repositories(String org) {
+	@Override public List<Repository> repositories(String org) {
 		try {
 			String response = orgRepos(org);
 			List<Map> map = this.objectMapper.readValue(response, List.class);
 			return map
 					.stream()
-					.map(entry -> entry.get("name").toString())
-					.filter(name -> !name.endsWith(".github.io"))
+					.map(entry -> new Repository(entry.get("name").toString(),
+							entry.get("ssh_url").toString(), entry.get("clone_url").toString()))
+					.filter(repo -> !options.isIgnored(repo.name))
 					.collect(Collectors.toList());
 		}
 		catch (IOException e) {
@@ -89,7 +94,8 @@ class GithubRepositoryManagement implements RepositoryManagement {
 	String orgRepos(String org) throws IOException {
 		return this.github.entry()
 				.method("GET")
-				.uri().path("orgs/" + org + "/repos").back().fetch().body();
+				.uri().path("orgs/" + org + "/repos")
+				.back().fetch().body();
 	}
 
 	@Override public String fileContent(String org, String repo,
@@ -101,7 +107,8 @@ class GithubRepositoryManagement implements RepositoryManagement {
 						filePath, branch, org, repo, descriptorExists);
 			}
 			if (descriptorExists) {
-				return new java.util.Scanner(getDescriptor(org, repo, branch, filePath))
+				return new java.util.Scanner(
+						getDescriptor(org, repo, branch, filePath))
 						.useDelimiter("\\A").next();
 			}
 			return "";
