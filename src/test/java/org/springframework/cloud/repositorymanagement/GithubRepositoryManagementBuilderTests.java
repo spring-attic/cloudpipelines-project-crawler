@@ -67,6 +67,17 @@ class GithubRepositoryManagementBuilderTests {
 				.repositories("marcingrzejszczak")).isNotNull();
 	}
 
+	@Test
+	@Ignore
+	void should_call_the_real_thing_to_get_a_file() {
+		then(new GithubRepositoryManagementBuilder().build(
+				OptionsBuilder.builder()
+						.rootUrl("http://github")
+						.build())
+				.fileContent("marcingrzejszczak",
+						"github-webhook", "master", "sc-pipelines.yml")).isNotNull();
+	}
+
 	private GithubRepositoryManagementBuilder githubBuilder() {
 		return new GithubRepositoryManagementBuilder() {
 			@Override RepositoryManagement createNewRepoManagement(Options options) {
