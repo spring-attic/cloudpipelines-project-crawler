@@ -79,16 +79,38 @@ class GithubRepositoryManagement implements RepositoryManagement {
 		try {
 			String response = orgRepos(org);
 			List<Map> map = this.objectMapper.readValue(response, List.class);
-			return map
-					.stream()
-					.map(entry -> new Repository(entry.get("name").toString(),
-							entry.get("ssh_url").toString(), entry.get("clone_url").toString()))
-					.filter(repo -> !options.isIgnored(repo.name))
-					.collect(Collectors.toList());
+			List<Repository> repositories = allNonFilteredOutProjects(map);
+			return addManuallySetProjects(org, repositories);
 		}
 		catch (IOException e) {
 			throw new IllegalStateException(e);
 		}
+	}
+
+	private List<Repository> allNonFilteredOutProjects(List<Map> map) {
+		return map.stream()
+						.map(entry -> new Repository(
+								options.projectName(entry.get("name").toString()),
+								entry.get("ssh_url").toString(),
+								entry.get("clone_url").toString()))
+						.filter(repo -> !options.isIgnored(repo.name))
+						.collect(Collectors.toList());
+	}
+
+	private List<Repository> addManuallySetProjects(String org, List<Repository> repositories) {
+		repositories.addAll(this.options.projects
+				.stream().map(pb -> new Repository(options.projectName(pb.projectName),
+				sshKey(org, pb), cloneUrl(org, pb)))
+				.collect(Collectors.toSet()));
+		return repositories;
+	}
+
+	private String sshKey(String org, ProjectAndBranch pb) {
+		return "git@github.com:" + org + "/" + pb.project + ".git";
+	}
+
+	private String cloneUrl(String org, ProjectAndBranch pb) {
+		return "https://github.com/" + org + "/" + pb.project + ".git";
 	}
 
 	String orgRepos(String org) throws IOException {

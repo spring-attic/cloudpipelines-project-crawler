@@ -13,7 +13,7 @@ import java.util.ServiceLoader;
  * {@code /META-INF/services/org.springframework.cloud.repositorymanagement.RepositoryManagementBuilder} file
  *
  * @author Marcin Grzejszczak
- * @since 0.0.1
+ * @since 1.0.0
  */
 public final class RepositoryManagers implements RepositoryManagement {
 

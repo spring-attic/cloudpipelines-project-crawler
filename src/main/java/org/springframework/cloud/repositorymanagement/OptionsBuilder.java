@@ -5,7 +5,7 @@ import java.util.Set;
 
 /**
  * @author Marcin Grzejszczak
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class OptionsBuilder {
 	private String username;
@@ -14,6 +14,7 @@ public class OptionsBuilder {
 	private String rootUrl;
 	private Repositories repositories = Repositories.OTHER;
 	private final Set<ProjectAndBranch> projects = new HashSet<>();
+	private final Set<ProjectAndBranch> renamedProjects = new HashSet<>();
 	private final Set<String> excludedProjectsRegex = new HashSet<>();
 
 	public static OptionsBuilder builder() {
@@ -56,7 +57,7 @@ public class OptionsBuilder {
 	}
 
 	public OptionsBuilder projectName(String projectName, String newProjectName) {
-		this.projects.add(new ProjectAndBranch(projectName, newProjectName));
+		this.renamedProjects.add(new ProjectAndBranch(projectName, newProjectName));
 		return this;
 	}
 
@@ -78,6 +79,7 @@ public class OptionsBuilder {
 	public Options build() {
 		return new Options(this.username, this.password,
 				this.token, this.rootUrl, this.repositories, this.projects,
+				this.renamedProjects,
 				this.excludedProjectsRegex);
 	}
 }

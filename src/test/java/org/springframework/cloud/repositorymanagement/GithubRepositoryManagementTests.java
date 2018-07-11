@@ -17,6 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static java.nio.file.Files.*;
+import static org.assertj.core.api.Assertions.tuple;
 import static org.assertj.core.api.BDDAssertions.then;
 
 /**
@@ -56,6 +57,46 @@ class GithubRepositoryManagementTests {
 			}
 		}.repositories("jeff")).hasSize(29)
 				.extracting("name").doesNotContain("spring-cloud.github.io");
+	}
+
+	@Test
+	void should_return_a_list_of_names_of_repos_for_an_org_with_manual() {
+		then(new GithubRepositoryManagement(this.github,
+				OptionsBuilder.builder()
+						.project("spring-cloud-gdpr")
+						.projectName("spring-cloud-kubernetes-connector", "foo")
+						.exclude("^.*github\\.io$").build()) {
+			@Override String orgRepos(String org) throws IOException {
+				URL resource = GithubRepositoryManagementTests.class
+						.getResource("/spring_cloud_repos.json");
+				return new String(Files.readAllBytes(new File(resource.getFile()).toPath()));
+			}
+		}.repositories("jeff")).hasSize(30)
+				.extracting("name", "ssh_url", "clone_url")
+				.contains(tuple("spring-cloud-gdpr",
+						"git@github.com:jeff/spring-cloud-gdpr.git",
+						"https://github.com/jeff/spring-cloud-gdpr.git"))
+				.contains(tuple("foo",
+						"git@github.com:spring-cloud/spring-cloud-kubernetes-connector.git",
+						"https://github.com/spring-cloud/spring-cloud-kubernetes-connector.git"))
+				.doesNotContain((tuple("spring-cloud-kubernetes-connector",
+						"git@github.com:spring-cloud/spring-cloud-kubernetes-connector.git",
+						"https://github.com/spring-cloud/spring-cloud-kubernetes-connector.git")));
+	}
+
+	@Test
+	void should_return_a_list_of_only_manually_added_projects() {
+		then(new GithubRepositoryManagement(this.github,
+				OptionsBuilder.builder()
+						.project("spring-cloud-gdpr")
+						.exclude("^.*$").build()) {
+			@Override String orgRepos(String org) throws IOException {
+				URL resource = GithubRepositoryManagementTests.class
+						.getResource("/spring_cloud_repos.json");
+				return new String(Files.readAllBytes(new File(resource.getFile()).toPath()));
+			}
+		}.repositories("jeff")).hasSize(1)
+				.extracting("name").contains("spring-cloud-gdpr");
 	}
 
 	@Test

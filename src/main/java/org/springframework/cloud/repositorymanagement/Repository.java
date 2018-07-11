@@ -1,5 +1,8 @@
 package org.springframework.cloud.repositorymanagement;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @author Marcin Grzejszczak
  */

@@ -5,7 +5,7 @@ package org.springframework.cloud.repositorymanagement;
  * required to pass the credentials, tokens etc.
  * 
  * @author Marcin Grzejszczak
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface RepositoryManagementBuilder {
 	/**

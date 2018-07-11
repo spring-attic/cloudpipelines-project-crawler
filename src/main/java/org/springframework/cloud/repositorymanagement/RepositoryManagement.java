@@ -8,7 +8,7 @@ import java.util.List;
  * Also capable of fetching contents of a file.
  *
  * @author Marcin Grzejszczak
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface RepositoryManagement {
 
