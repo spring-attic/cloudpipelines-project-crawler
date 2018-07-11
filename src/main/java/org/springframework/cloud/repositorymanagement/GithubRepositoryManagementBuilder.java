@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jcabi.github.Coordinates;
 import com.jcabi.github.Github;
 import com.jcabi.github.RtGithub;
+import com.jcabi.http.Response;
 import com.jcabi.http.wire.RetryWire;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -117,10 +118,25 @@ class GithubRepositoryManagement implements RepositoryManagement {
 	}
 
 	String orgRepos(String org) throws IOException {
-		return this.github.entry()
-				.method("GET")
-				.uri().path("orgs/" + org + "/repos")
-				.back().fetch().body();
+		Response response = fetchOrgsRepo(org);
+		if (response.status() == 404) {
+			log.warn("Got 404, will assume that org is actually a user");
+			response = fetchUsersRepo(org);
+			if (response.status() >= 400) {
+				throw new IllegalStateException("Status [" + response.status() + "] was returned for orgs and users");
+			}
+		}
+		return response.body();
+	}
+
+	private Response fetchUsersRepo(String org) throws IOException {
+		return this.github.entry().method("GET").uri()
+				.path("users/" + org + "/repos").back().fetch();
+	}
+
+	private Response fetchOrgsRepo(String org) throws IOException {
+		return this.github.entry().method("GET").uri()
+				.path("orgs/" + org + "/repos").back().fetch();
 	}
 
 	@Override public String fileContent(String org, String repo,

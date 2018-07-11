@@ -2,9 +2,9 @@ package org.springframework.cloud.repositorymanagement;
 
 import java.util.List;
 
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.Test;
 
-import static java.nio.file.Files.createTempDirectory;
 import static org.assertj.core.api.BDDAssertions.then;
 
 /**
@@ -41,6 +41,30 @@ class GithubRepositoryManagementBuilderTests {
 	void should_return_true_when_url_contains_github() {
 		then(githubBuilder().build(OptionsBuilder.builder()
 				.rootUrl("http://github").build())).isNotNull();
+	}
+
+	@Test
+	@Ignore
+	void should_call_the_real_thing_via_org() {
+		then(new GithubRepositoryManagementBuilder().build(
+				OptionsBuilder.builder()
+						.exclude(".*")
+						.project("github-webook")
+						.rootUrl("http://github")
+						.build())
+				.repositories("spring-cloud")).isNotNull();
+	}
+
+	@Test
+	@Ignore
+	void should_call_the_real_thing_via_username() {
+		then(new GithubRepositoryManagementBuilder().build(
+				OptionsBuilder.builder()
+						.exclude(".*")
+						.project("github-webook")
+						.rootUrl("http://github")
+						.build())
+				.repositories("marcingrzejszczak")).isNotNull();
 	}
 
 	private GithubRepositoryManagementBuilder githubBuilder() {
