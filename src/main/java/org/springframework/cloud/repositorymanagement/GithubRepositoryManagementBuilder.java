@@ -96,7 +96,8 @@ class GithubRepositoryManagement implements RepositoryManagement {
 						.map(entry -> new Repository(
 								options.projectName(entry.get("name").toString()),
 								entry.get("ssh_url").toString(),
-								entry.get("clone_url").toString()))
+								entry.get("clone_url").toString(),
+								"master"))
 						.filter(repo -> !options.isIgnored(repo.name))
 						.collect(Collectors.toList());
 	}
@@ -104,7 +105,7 @@ class GithubRepositoryManagement implements RepositoryManagement {
 	private List<Repository> addManuallySetProjects(String org, List<Repository> repositories) {
 		repositories.addAll(this.options.projects
 				.stream().map(pb -> new Repository(options.projectName(pb.projectName),
-				sshKey(org, pb), cloneUrl(org, pb)))
+				sshKey(org, pb), cloneUrl(org, pb), pb.branch))
 				.collect(Collectors.toSet()));
 		return repositories;
 	}
