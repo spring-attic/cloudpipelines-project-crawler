@@ -27,7 +27,7 @@ class GithubRepositoryManagementBuilder implements RepositoryManagementBuilder {
 		if (applicable) {
 			return createNewRepoManagement(options);
 		}
-		if (options.repositories != Repositories.GITHUB) {
+		if (options.repository != Repositories.GITHUB) {
 			return null;
 		}
 		return createNewRepoManagement(options);
@@ -65,7 +65,7 @@ class GithubRepositoryManagement implements RepositoryManagement {
 		this.options = options;
 	}
 
-	private RtGithub github(Options options) {
+	private Github github(Options options) {
 		if (StringUtils.isNotBlank(options.token)) {
 			return new RtGithub(options.token);
 		}

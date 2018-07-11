@@ -28,13 +28,13 @@ class GithubRepositoryManagementBuilderTests {
 	@Test
 	void should_return_true_when_repositories_is_github_as_enum() {
 		then(githubBuilder().build(OptionsBuilder.builder().rootUrl("foo")
-				.repositories(Repositories.GITHUB).build())).isNotNull();
+				.repository(Repositories.GITHUB).build())).isNotNull();
 	}
 
 	@Test
 	void should_return_true_when_repositories_is_github() {
 		then(githubBuilder().build(OptionsBuilder.builder().rootUrl("foo")
-				.repositories("github").build())).isNotNull();
+				.repository("github").build())).isNotNull();
 	}
 
 	@Test

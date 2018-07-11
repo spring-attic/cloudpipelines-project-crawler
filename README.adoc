@@ -18,8 +18,6 @@ management tools like Github, Gitlab, BitBucket
 
 TODO:
 
-* allow overriding of project names (options -> project('name', 'new_name'))
-* depending on a switch use `git@...` or `https:...` to append to the full URL
 * add more tests for GitHub
 * add support for GitLab
 * add support for BitBucket

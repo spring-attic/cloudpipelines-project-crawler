@@ -1,7 +1,7 @@
 package org.springframework.cloud.repositorymanagement;
 
 /**
- * Supported repositories
+ * Supported repository
  *
  * @author Marcin Grzejszczak
  * @since 1.0.0

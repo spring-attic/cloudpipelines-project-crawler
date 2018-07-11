@@ -12,7 +12,7 @@ public class OptionsBuilder {
 	private String password;
 	private String token;
 	private String rootUrl;
-	private Repositories repositories = Repositories.OTHER;
+	private Repositories repository = Repositories.OTHER;
 	private final Set<ProjectAndBranch> projects = new HashSet<>();
 	private final Set<ProjectAndBranch> renamedProjects = new HashSet<>();
 	private final Set<String> excludedProjectsRegex = new HashSet<>();
@@ -36,13 +36,13 @@ public class OptionsBuilder {
 		return this;
 	}
 
-	public OptionsBuilder repositories(Repositories repositories) {
-		this.repositories = repositories;
+	public OptionsBuilder repository(Repositories repository) {
+		this.repository = repository;
 		return this;
 	}
 
-	public OptionsBuilder repositories(String repositories) {
-		this.repositories = Repositories.valueOf(repositories.toUpperCase());
+	public OptionsBuilder repository(String repository) {
+		this.repository = Repositories.valueOf(repository.toUpperCase());
 		return this;
 	}
 
@@ -78,7 +78,7 @@ public class OptionsBuilder {
 
 	public Options build() {
 		return new Options(this.username, this.password,
-				this.token, this.rootUrl, this.repositories, this.projects,
+				this.token, this.rootUrl, this.repository, this.projects,
 				this.renamedProjects,
 				this.excludedProjectsRegex);
 	}

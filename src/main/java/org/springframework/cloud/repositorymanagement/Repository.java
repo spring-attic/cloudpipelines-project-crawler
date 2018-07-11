@@ -14,7 +14,4 @@ public class Repository {
 		this.ssh_url = ssh_url;
 		this.clone_url = clone_url;
 	}
-
-	public Repository() {
-	}
 }
