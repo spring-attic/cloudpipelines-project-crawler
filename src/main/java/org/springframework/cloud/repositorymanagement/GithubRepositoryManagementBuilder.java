@@ -67,12 +67,15 @@ class GithubRepositoryManagement implements RepositoryManagement {
 
 	private Github github(Options options) {
 		if (StringUtils.isNotBlank(options.token)) {
+			log.info("Token passed to github client");
 			return new RtGithub(options.token);
 		}
 		if (StringUtils.isNotBlank(options.username)) {
+			log.info("Username and password passed to github client");
 			return new RtGithub(options.username, options.password);
 		}
-		throw new IllegalStateException("Token and username are blank. Pick either of them");
+		log.info("No security passed to github client");
+		return new RtGithub();
 	}
 
 	@Override public List<Repository> repositories(String org) {
