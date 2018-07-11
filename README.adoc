@@ -1,5 +1,5 @@
 :jdkversion: 1.8
-:org: marcingrzejszczak
+:org: spring-cloud
 :repo: spring-cloud-repository-management
 :branch: master
 
