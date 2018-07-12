@@ -1,11 +1,7 @@
 package org.springframework.cloud.repositorymanagement;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -26,18 +22,6 @@ import org.slf4j.LoggerFactory;
 class GithubRepositoryManagementBuilder implements RepositoryManagementBuilder {
 
 	private static final Logger log = LoggerFactory.getLogger(GithubRepositoryManagementBuilder.class);
-
-	static {
-		URL resource = Thread.currentThread().getContextClassLoader()
-				.getResource("jcabigithub.properties");
-		try {
-			if (resource == null) {
-				Files.write(Paths.get(new File("jcabigithub.properties").toURI()), "".getBytes());
-			}
-		}
-		catch (IOException e) {
-		}
-	}
 
 	@Override public RepositoryManagement build(Options options) {
 		boolean applicable = isApplicable(options.rootUrl);
