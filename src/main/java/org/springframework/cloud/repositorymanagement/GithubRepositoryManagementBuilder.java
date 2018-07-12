@@ -31,7 +31,7 @@ class GithubRepositoryManagementBuilder implements RepositoryManagementBuilder {
 		URL resource = Thread.currentThread().getContextClassLoader()
 				.getResource("jcabigithub.properties");
 		try {
-			if (resource != null && !resource.toString().startsWith("jar")) {
+			if (resource == null || !resource.toString().startsWith("jar")) {
 				Files.write(Paths.get(resource.toURI()), "".getBytes());
 			}
 		}
