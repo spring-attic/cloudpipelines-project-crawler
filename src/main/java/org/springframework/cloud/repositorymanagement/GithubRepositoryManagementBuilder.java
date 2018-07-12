@@ -1,8 +1,8 @@
 package org.springframework.cloud.repositorymanagement;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -31,11 +31,11 @@ class GithubRepositoryManagementBuilder implements RepositoryManagementBuilder {
 		URL resource = Thread.currentThread().getContextClassLoader()
 				.getResource("jcabigithub.properties");
 		try {
-			if (resource == null || !resource.toString().startsWith("jar")) {
-				Files.write(Paths.get(resource.toURI()), "".getBytes());
+			if (resource == null) {
+				Files.write(Paths.get(new File("jcabigithub.properties").toURI()), "".getBytes());
 			}
 		}
-		catch (IOException | URISyntaxException e) {
+		catch (IOException e) {
 		}
 	}
 
