@@ -17,28 +17,26 @@ management tools like Github, Gitlab, BitBucket
 
 == Examples
 
-=== Github
+Fetch the repositories for an org and download a file from it
 
 ```groovy
-RepositoryManagers repositoryManagers = new RepositoryManagers(OptionsBuilder
-	.builder()
+RepositoryManagers repositoryManagers = new RepositoryManagers(OptionsBuilder.builder()
   // basing the root URL we can resolve the type of repo (e.g. https://github.com)
   .rootUrl(urlRoot)
   // username to access the API
-	.username(username)
+  .username(username)
   // password to access the API
-	.password(password)
+  .password(password)
   // token to access the API
-	.token(defaults.gitToken())
+  .token(defaults.gitToken())
   // repository type (GITHUB, BITBUCKET, GITLAB, OTHER)
-	.repository(repoType)
+  .repository(repoType)
   .build());
 // get the repos from the org
 List<Repository> repositories = repositoryManagers.repositories(org);
 repositories.each { Repository repo ->
   // fetch a file from the repository
-	String file = repositoryManagers.fileContent(org, repo.name,
-		repo.requestedBranch, "path/to/file.txt")
+	String file = repositoryManagers.fileContent(org, repo.name, repo.requestedBranch, "path/to/file.txt")
 }
 ```
 
