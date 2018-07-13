@@ -19,7 +19,7 @@ management tools like Github, Gitlab, BitBucket
 
 === Github
 
-```java
+```groovy
 RepositoryManagers repositoryManagers = new RepositoryManagers(OptionsBuilder
 	.builder()
   // basing the root URL we can resolve the type of repo (e.g. https://github.com)
