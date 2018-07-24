@@ -1,0 +1,4 @@
+$ echo "Getting projects for group"
+$ curl --header "Private-Token: foo-bar" https://gitlab.com/api/v4/groups/sc-pipelines/projects
+$ echo "Getting a file"
+$ curl --header "Private-Token: foo-bar" 'https://gitlab.com/api/v4/projects/7620377/repository/files/sc-pipelines%2Eyml?ref=master' | jq

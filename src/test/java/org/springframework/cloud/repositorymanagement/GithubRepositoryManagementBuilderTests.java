@@ -3,6 +3,7 @@ package org.springframework.cloud.repositorymanagement;
 import java.util.List;
 
 import jdk.nashorn.internal.ir.annotations.Ignore;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.BDDAssertions.then;
@@ -56,7 +57,7 @@ class GithubRepositoryManagementBuilderTests {
 	}
 
 	@Test
-	@Ignore
+	@Disabled
 	void should_call_the_real_thing_via_username() {
 		then(new GithubRepositoryManagementBuilder().build(
 				OptionsBuilder.builder()
@@ -68,7 +69,7 @@ class GithubRepositoryManagementBuilderTests {
 	}
 
 	@Test
-	@Ignore
+	@Disabled
 	void should_call_the_real_thing_to_get_a_file() {
 		then(new GithubRepositoryManagementBuilder().build(
 				OptionsBuilder.builder()

@@ -21,7 +21,10 @@ public final class RepositoryManagers implements RepositoryManagement {
 	private static final ServiceLoader<RepositoryManagementBuilder> LOADED = ServiceLoader
 			.load(RepositoryManagementBuilder.class);
 	private static final List<RepositoryManagementBuilder> DEFAULT_BUILDERS
-			= Arrays.asList(new GithubRepositoryManagementBuilder());
+			= Arrays.asList(
+					new GithubRepositoryManagementBuilder(),
+					new GitlabRepositoryManagementBuilder()
+	);
 
 	public RepositoryManagers(Options options) {
 		this.options = options;

@@ -21,14 +21,14 @@ Fetch the repositories for an org and download a file from it
 
 ```groovy
 RepositoryManagers repositoryManagers = new RepositoryManagers(OptionsBuilder.builder()
-  // basing the root URL we can resolve the type of repo (e.g. https://github.com)
+  // basing the root URL we can resolve the type of repo (e.g. https://gitlab.com)
   .rootUrl(urlRoot)
   // username to access the API
   .username(username)
   // password to access the API
   .password(password)
   // token to access the API
-  .token(defaults.gitToken())
+  .token(token)
   // repository type (GITHUB, BITBUCKET, GITLAB, OTHER)
   .repository(repoType)
   .build());
@@ -36,13 +36,10 @@ RepositoryManagers repositoryManagers = new RepositoryManagers(OptionsBuilder.bu
 List<Repository> repositories = repositoryManagers.repositories(org);
 repositories.each { Repository repo ->
   // fetch a file from the repository
-	String file = repositoryManagers.fileContent(org, repo.name, repo.requestedBranch, "path/to/file.txt")
+  String file = repositoryManagers.fileContent(org, repo.name, repo.requestedBranch, "path/to/file.txt")
 }
 ```
 
 TODO:
 
-* add more tests for GitHub
-* add support for GitLab
 * add support for BitBucket
-* integrate with Spring Cloud Pipelines
