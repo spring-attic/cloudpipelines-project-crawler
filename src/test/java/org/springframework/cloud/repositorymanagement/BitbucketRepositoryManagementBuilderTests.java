@@ -27,19 +27,19 @@ class BitbucketRepositoryManagementBuilderTests {
 	@Test
 	void should_return_true_when_repositories_is_gitlab_as_enum() {
 		then(builder().build(OptionsBuilder.builder().rootUrl("foo")
-				.repository(Repositories.GITLAB).build())).isNotNull();
+				.repository(Repositories.BITBUCKET).build())).isNotNull();
 	}
 
 	@Test
 	void should_return_true_when_repositories_is_gitlab() {
 		then(builder().build(OptionsBuilder.builder().rootUrl("foo")
-				.repository("gitlab").build())).isNotNull();
+				.repository("bitbucket").build())).isNotNull();
 	}
 
 	@Test
 	void should_return_true_when_url_contains_gitlab() {
 		then(builder().build(OptionsBuilder.builder()
-				.rootUrl("http://gitlab").build())).isNotNull();
+				.rootUrl("http://bitbucket").build())).isNotNull();
 	}
 
 	@Test
