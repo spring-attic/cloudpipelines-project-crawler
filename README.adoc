@@ -44,3 +44,7 @@ For BitBucket:
 
 * remember to pass the URL to the API (e.g. `https://api.bitbucket.org`).
 * we support only the 2.0 API.
+
+TODO:
+
+* Pagination
