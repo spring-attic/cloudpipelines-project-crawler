@@ -46,8 +46,6 @@ class GitlabRepositoryManagementBuilder implements RepositoryManagementBuilder {
 
 class GitlabRepositoryManagement implements RepositoryManagement {
 
-	private static final Logger log = LoggerFactory.getLogger(GithubRepositoryManagement.class);
-
 	private final GitlabAPI gitlabApi;
 	private final Options options;
 
