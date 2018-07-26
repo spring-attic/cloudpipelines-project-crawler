@@ -1,7 +1,14 @@
 package org.springframework.cloud.repositorymanagement;
 
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
+import okhttp3.MediaType;
+import okhttp3.Protocol;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -21,25 +28,49 @@ class BitbucketRepositoryManagementBuilderTests {
 
 	@Test
 	void should_return_false_when_url_does_not_contain_bitbucket() {
-		then(sut.build(OptionsBuilder.builder().rootUrl("foo").build())).isNull();
+		then(sut.build(OptionsBuilder.builder()
+				.token("foo")
+				.rootUrl("foo").build())).isNull();
 	}
 
 	@Test
 	void should_return_true_when_repositories_is_bitbucket_as_enum() {
-		then(builder().build(OptionsBuilder.builder().rootUrl("foo")
+		then(builder().build(OptionsBuilder.builder()
+				.token("foo")
+				.rootUrl("foo")
 				.repository(Repositories.BITBUCKET).build())).isNotNull();
 	}
 
 	@Test
 	void should_return_true_when_repositories_is_bitbucket() {
-		then(builder().build(OptionsBuilder.builder().rootUrl("foo")
+		then(builder().build(OptionsBuilder.builder()
+				.username("foo").password("bar")
+				.rootUrl("foo")
 				.repository("bitbucket").build())).isNotNull();
 	}
 
 	@Test
 	void should_return_true_when_url_contains_gitlab() {
 		then(builder().build(OptionsBuilder.builder()
+				.token("foo")
 				.rootUrl("http://bitbucket").build())).isNotNull();
+	}
+
+	@Test
+	void should_fetch_the_repos() {
+		then(builder().build(OptionsBuilder.builder()
+				.token("foo")
+				.rootUrl("http://bitbucket").build())
+				.repositories("scpipelines")).isNotNull();
+	}
+
+	@Test
+	void should_fetch_the_file() {
+		then(builder().build(OptionsBuilder.builder()
+				.token("foo")
+				.rootUrl("http://bitbucket").build())
+				.fileContent("scpipelines",
+						"github-webhook", "master", "sc-pipelines.yml")).isNotEmpty();
 	}
 
 	@Test
@@ -71,14 +102,25 @@ class BitbucketRepositoryManagementBuilderTests {
 	private BitbucketRepositoryManagementBuilder builder() {
 		return new BitbucketRepositoryManagementBuilder() {
 			@Override RepositoryManagement createNewRepoManagement(Options options) {
-				return new RepositoryManagement() {
-					@Override public List<Repository> repositories(String org) {
-						return null;
+				return new BitbucketRepositoryManagement(options) {
+					@Override Response callRepositories(String org) throws IOException {
+						File file = new File(BitbucketRepositoryManagementBuilderTests.class.getResource("/bitbucket/projects.json").getFile());
+						String body = new String(Files.readAllBytes(file.toPath()));
+						return new Response.Builder()
+								.request(new Request.Builder()
+										.url("http://foo.com")
+										.get()
+										.build())
+								.protocol(Protocol.HTTP_1_1)
+								.code(200)
+								.message(body)
+								.body(ResponseBody.create(MediaType.get("application/json"), body))
+								.build();
 					}
 
-					@Override public String fileContent(String org, String repo,
-							String branch, String filePath) {
-						return null;
+					@Override String getDescriptor(String org, String repo, String branch,
+							String filePath) {
+						return "hello";
 					}
 				};
 			}

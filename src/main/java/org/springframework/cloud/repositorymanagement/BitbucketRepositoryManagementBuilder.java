@@ -101,11 +101,8 @@ class BitbucketRepositoryManagement implements RepositoryManagement {
 	}
 
 	@Override public List<Repository> repositories(String org) {
-		// teams/{username}/projects/
 		try {
-			Response execute = this.client.newCall(
-					new Request.Builder().get().url(rootUrl() + "repositories/" + org)
-							.build()).execute();
+			Response execute = callRepositories(org);
 			ResponseBody body = execute.body();
 			if (execute.code() >= 400) {
 				throw new IllegalStateException("Status code [" + execute.code() + "] and body [" + body
@@ -118,6 +115,12 @@ class BitbucketRepositoryManagement implements RepositoryManagement {
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		}
+	}
+
+	Response callRepositories(String org) throws IOException {
+		return this.client.newCall(
+				new Request.Builder().get().url(rootUrl() + "repositories/" + org)
+						.build()).execute();
 	}
 
 	private String rootUrl() {

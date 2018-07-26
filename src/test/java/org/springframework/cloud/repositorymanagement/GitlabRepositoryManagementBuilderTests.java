@@ -1,9 +1,14 @@
 package org.springframework.cloud.repositorymanagement;
 
+import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
+import org.gitlab.api.GitlabAPI;
+import org.gitlab.api.models.GitlabProject;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
@@ -16,29 +21,36 @@ class GitlabRepositoryManagementBuilderTests {
 
 	@Test
 	void should_return_false_when_url_is_empty() {
-		then(sut.build(OptionsBuilder.builder().build())).isNull();
+		then(sut.build(OptionsBuilder.builder()
+				.username("foo").password("bar")
+				.build())).isNull();
 	}
 
 	@Test
 	void should_return_false_when_url_does_not_contain_gitlab() {
-		then(sut.build(OptionsBuilder.builder().rootUrl("foo").build())).isNull();
+		then(sut.build(OptionsBuilder.builder()
+				.username("foo").password("bar")
+				.rootUrl("foo").build())).isNull();
 	}
 
 	@Test
 	void should_return_true_when_repositories_is_gitlab_as_enum() {
-		then(builder().build(OptionsBuilder.builder().rootUrl("foo")
+		then(builder().build(OptionsBuilder.builder().rootUrl("http://foo.com")
+				.username("foo").password("bar")
 				.repository(Repositories.GITLAB).build())).isNotNull();
 	}
 
 	@Test
 	void should_return_true_when_repositories_is_gitlab() {
 		then(builder().build(OptionsBuilder.builder().rootUrl("foo")
+				.token("foo")
 				.repository("gitlab").build())).isNotNull();
 	}
 
 	@Test
 	void should_return_true_when_url_contains_gitlab() {
 		then(builder().build(OptionsBuilder.builder()
+				.token("foo")
 				.rootUrl("http://gitlab").build())).isNotNull();
 	}
 
@@ -70,14 +82,20 @@ class GitlabRepositoryManagementBuilderTests {
 	private GitlabRepositoryManagementBuilder builder() {
 		return new GitlabRepositoryManagementBuilder() {
 			@Override RepositoryManagement createNewRepoManagement(Options options) {
-				return new RepositoryManagement() {
-					@Override public List<Repository> repositories(String org) {
-						return null;
+				return new GitlabRepositoryManagement(options) {
+
+					@Override GitlabAPI connect(Options options) {
+						return Mockito.mock(GitlabAPI.class);
 					}
 
-					@Override public String fileContent(String org, String repo,
-							String branch, String filePath) {
-						return null;
+					@Override List<GitlabProject> groupRepos(String org)
+							throws IOException {
+						return Collections.singletonList(new GitlabProject());
+					}
+
+					@Override byte[] getDescriptor(String org, String repo, String branch,
+							String filePath) throws IOException {
+						return "".getBytes();
 					}
 				};
 			}

@@ -55,7 +55,7 @@ class GitlabRepositoryManagement implements RepositoryManagement {
 		this.options = options;
 	}
 
-	private GitlabAPI connect(Options options) {
+	GitlabAPI connect(Options options) {
 		if (StringUtils.isNotBlank(options.token)) {
 			return GitlabAPI
 					.connect(options.rootUrl, options.token);
@@ -123,7 +123,7 @@ class GitlabRepositoryManagement implements RepositoryManagement {
 		return "https://" + host() + "/" + org + "/" + pb.project + ".git";
 	}
 
-	private List<GitlabProject> groupRepos(String org) throws IOException {
+	List<GitlabProject> groupRepos(String org) throws IOException {
 		return this.gitlabApi
 				.getGroupProjects(this.gitlabApi.getGroup(org));
 	}

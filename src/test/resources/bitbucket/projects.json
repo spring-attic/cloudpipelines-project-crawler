@@ -1,0 +1,215 @@
+{
+  "pagelen": 10,
+  "values": [
+    {
+      "scm": "git",
+      "website": "",
+      "has_wiki": false,
+      "uuid": "{2969f380-836c-46e7-beaf-0c74d7ca9a24}",
+      "links": {
+        "watchers": {
+          "href": "https://api.bitbucket.org/2.0/repositories/scpipelines/github-webhook/watchers"
+        },
+        "branches": {
+          "href": "https://api.bitbucket.org/2.0/repositories/scpipelines/github-webhook/refs/branches"
+        },
+        "tags": {
+          "href": "https://api.bitbucket.org/2.0/repositories/scpipelines/github-webhook/refs/tags"
+        },
+        "commits": {
+          "href": "https://api.bitbucket.org/2.0/repositories/scpipelines/github-webhook/commits"
+        },
+        "clone": [
+          {
+            "href": "https://bitbucket.org/scpipelines/github-webhook.git",
+            "name": "https"
+          },
+          {
+            "href": "git@bitbucket.org:scpipelines/github-webhook.git",
+            "name": "ssh"
+          }
+        ],
+        "self": {
+          "href": "https://api.bitbucket.org/2.0/repositories/scpipelines/github-webhook"
+        },
+        "source": {
+          "href": "https://api.bitbucket.org/2.0/repositories/scpipelines/github-webhook/src"
+        },
+        "html": {
+          "href": "https://bitbucket.org/scpipelines/github-webhook"
+        },
+        "avatar": {
+          "href": "https://bytebucket.org/ravatar/%7B2969f380-836c-46e7-beaf-0c74d7ca9a24%7D?ts=default"
+        },
+        "hooks": {
+          "href": "https://api.bitbucket.org/2.0/repositories/scpipelines/github-webhook/hooks"
+        },
+        "forks": {
+          "href": "https://api.bitbucket.org/2.0/repositories/scpipelines/github-webhook/forks"
+        },
+        "downloads": {
+          "href": "https://api.bitbucket.org/2.0/repositories/scpipelines/github-webhook/downloads"
+        },
+        "pullrequests": {
+          "href": "https://api.bitbucket.org/2.0/repositories/scpipelines/github-webhook/pullrequests"
+        }
+      },
+      "fork_policy": "allow_forks",
+      "name": "github-webhook",
+      "project": {
+        "key": "GIT",
+        "type": "project",
+        "uuid": "{1c1015cc-bf6b-4857-b0ae-f548c1c2e625}",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/teams/scpipelines/projects/GIT"
+          },
+          "html": {
+            "href": "https://bitbucket.org/account/user/scpipelines/projects/GIT"
+          },
+          "avatar": {
+            "href": "https://bitbucket.org/account/user/scpipelines/projects/GIT/avatar/32"
+          }
+        },
+        "name": "github-webhook"
+      },
+      "language": "",
+      "created_on": "2018-07-25T07:00:28.296081+00:00",
+      "mainbranch": {
+        "type": "branch",
+        "name": "master"
+      },
+      "full_name": "scpipelines/github-webhook",
+      "has_issues": false,
+      "owner": {
+        "username": "scpipelines",
+        "display_name": "sc-pipelines",
+        "type": "team",
+        "uuid": "{7d9675e0-6e92-41b8-aec4-dff4487d8bf5}",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/teams/scpipelines"
+          },
+          "html": {
+            "href": "https://bitbucket.org/scpipelines/"
+          },
+          "avatar": {
+            "href": "https://bitbucket.org/account/scpipelines/avatar/"
+          }
+        }
+      },
+      "updated_on": "2018-07-25T07:00:28.695833+00:00",
+      "size": 279046,
+      "type": "repository",
+      "slug": "github-webhook",
+      "is_private": false,
+      "description": ""
+    },
+    {
+      "scm": "git",
+      "website": "",
+      "has_wiki": false,
+      "uuid": "{33176226-263c-43a6-8709-7b5e8411df11}",
+      "links": {
+        "watchers": {
+          "href": "https://api.bitbucket.org/2.0/repositories/scpipelines/github-analytics/watchers"
+        },
+        "branches": {
+          "href": "https://api.bitbucket.org/2.0/repositories/scpipelines/github-analytics/refs/branches"
+        },
+        "tags": {
+          "href": "https://api.bitbucket.org/2.0/repositories/scpipelines/github-analytics/refs/tags"
+        },
+        "commits": {
+          "href": "https://api.bitbucket.org/2.0/repositories/scpipelines/github-analytics/commits"
+        },
+        "clone": [
+          {
+            "href": "https://bitbucket.org/scpipelines/github-analytics.git",
+            "name": "https"
+          },
+          {
+            "href": "git@bitbucket.org:scpipelines/github-analytics.git",
+            "name": "ssh"
+          }
+        ],
+        "self": {
+          "href": "https://api.bitbucket.org/2.0/repositories/scpipelines/github-analytics"
+        },
+        "source": {
+          "href": "https://api.bitbucket.org/2.0/repositories/scpipelines/github-analytics/src"
+        },
+        "html": {
+          "href": "https://bitbucket.org/scpipelines/github-analytics"
+        },
+        "avatar": {
+          "href": "https://bytebucket.org/ravatar/%7B33176226-263c-43a6-8709-7b5e8411df11%7D?ts=default"
+        },
+        "hooks": {
+          "href": "https://api.bitbucket.org/2.0/repositories/scpipelines/github-analytics/hooks"
+        },
+        "forks": {
+          "href": "https://api.bitbucket.org/2.0/repositories/scpipelines/github-analytics/forks"
+        },
+        "downloads": {
+          "href": "https://api.bitbucket.org/2.0/repositories/scpipelines/github-analytics/downloads"
+        },
+        "pullrequests": {
+          "href": "https://api.bitbucket.org/2.0/repositories/scpipelines/github-analytics/pullrequests"
+        }
+      },
+      "fork_policy": "allow_forks",
+      "name": "github-analytics",
+      "project": {
+        "key": "GIT-2",
+        "type": "project",
+        "uuid": "{e62c6dff-ca9d-4067-ae65-77e8498f5f00}",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/teams/scpipelines/projects/GIT-2"
+          },
+          "html": {
+            "href": "https://bitbucket.org/account/user/scpipelines/projects/GIT-2"
+          },
+          "avatar": {
+            "href": "https://bitbucket.org/account/user/scpipelines/projects/GIT-2/avatar/32"
+          }
+        },
+        "name": "github-analytics"
+      },
+      "language": "",
+      "created_on": "2018-07-25T08:39:20.103485+00:00",
+      "mainbranch": {
+        "type": "branch",
+        "name": "master"
+      },
+      "full_name": "scpipelines/github-analytics",
+      "has_issues": false,
+      "owner": {
+        "username": "scpipelines",
+        "display_name": "sc-pipelines",
+        "type": "team",
+        "uuid": "{7d9675e0-6e92-41b8-aec4-dff4487d8bf5}",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/teams/scpipelines"
+          },
+          "html": {
+            "href": "https://bitbucket.org/scpipelines/"
+          },
+          "avatar": {
+            "href": "https://bitbucket.org/account/scpipelines/avatar/"
+          }
+        }
+      },
+      "updated_on": "2018-07-25T08:39:20.515725+00:00",
+      "size": 354313,
+      "type": "repository",
+      "slug": "github-analytics",
+      "is_private": false,
+      "description": ""
+    }
+  ],
+  "page": 1,
+  "size": 2
+}
