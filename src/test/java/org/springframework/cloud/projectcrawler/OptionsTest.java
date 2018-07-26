@@ -1,14 +1,7 @@
-package org.springframework.cloud.repositorymanagement;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+package org.springframework.cloud.projectcrawler;
 
 import org.assertj.core.api.BDDAssertions;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Marcin Grzejszczak

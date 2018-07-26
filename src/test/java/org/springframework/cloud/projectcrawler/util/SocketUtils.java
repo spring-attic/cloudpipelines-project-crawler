@@ -1,4 +1,4 @@
-package org.springframework.cloud.repositorymanagement.util;
+package org.springframework.cloud.projectcrawler.util;
 
 import java.net.DatagramSocket;
 import java.net.InetAddress;

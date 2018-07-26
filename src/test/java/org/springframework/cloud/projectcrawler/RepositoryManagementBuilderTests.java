@@ -1,9 +1,7 @@
-package org.springframework.cloud.repositorymanagement;
+package org.springframework.cloud.projectcrawler;
 
 import org.assertj.core.api.BDDAssertions;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Marcin Grzejszczak

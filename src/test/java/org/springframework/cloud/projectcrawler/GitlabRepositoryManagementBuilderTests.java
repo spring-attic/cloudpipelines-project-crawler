@@ -1,4 +1,4 @@
-package org.springframework.cloud.repositorymanagement;
+package org.springframework.cloud.projectcrawler;
 
 import java.io.IOException;
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package org.springframework.cloud.repositorymanagement;
+package org.springframework.cloud.projectcrawler;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.ServiceLoader;
  * @author Marcin Grzejszczak
  * @since 1.0.0
  */
-public final class RepositoryManagers implements RepositoryManagement {
+public final class ProjectCrawler implements RepositoryManagement {
 
 	private final Options options;
 	private static final ServiceLoader<RepositoryManagementBuilder> LOADED = ServiceLoader
@@ -26,7 +26,7 @@ public final class RepositoryManagers implements RepositoryManagement {
 					new GitlabRepositoryManagementBuilder()
 	);
 
-	public RepositoryManagers(Options options) {
+	public ProjectCrawler(Options options) {
 		this.options = options;
 	}
 

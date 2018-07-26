@@ -1,18 +1,14 @@
-package org.springframework.cloud.repositorymanagement;
-
-import java.util.List;
+package org.springframework.cloud.projectcrawler;
 
 import org.assertj.core.api.BDDAssertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * @author Marcin Grzejszczak
  */
-class RepositoryManagersTests {
+class ProjectCrawlerTests {
 
 	@BeforeEach
 	void before() {
@@ -26,7 +22,7 @@ class RepositoryManagersTests {
 
 	@Test
 	void should_call_the_test_repo_manager_for_repositories() {
-		new RepositoryManagers(OptionsBuilder.builder()
+		new ProjectCrawler(OptionsBuilder.builder()
 				.repository(Repositories.OTHER)
 				.build())
 				.repositories("foo");
@@ -36,7 +32,7 @@ class RepositoryManagersTests {
 
 	@Test
 	void should_call_the_test_repo_manager_for_path() {
-		new RepositoryManagers(OptionsBuilder.builder()
+		new ProjectCrawler(OptionsBuilder.builder()
 				.repository(Repositories.OTHER)
 				.build())
 				.fileContent("org", "repo", "branch", "path");

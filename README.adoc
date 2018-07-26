@@ -1,6 +1,6 @@
 :jdkversion: 1.8
 :org: spring-cloud
-:repo: spring-cloud-repository-management
+:repo: project-crawler
 :branch: master
 
 image::https://circleci.com/gh/{org}/{repo}/tree/{branch}.svg?style=svg["CircleCI", link="https://circleci.com/gh/{org}/{repo}/tree/{branch}"]
@@ -19,7 +19,7 @@ Small project to iterate over and fetch files from different repository manageme
 Fetch the repositories for an org and download a file from it
 
 ```groovy
-RepositoryManagers repositoryManagers = new RepositoryManagers(OptionsBuilder.builder()
+ProjectCrawler crawler = new ProjectCrawler(OptionsBuilder.builder()
   // basing the root URL we can resolve the type of repo (e.g. https://gitlab.com)
   .rootUrl(urlRoot)
   // username to access the API
@@ -32,10 +32,10 @@ RepositoryManagers repositoryManagers = new RepositoryManagers(OptionsBuilder.bu
   .repository(repoType)
   .build());
 // get the repos from the org
-List<Repository> repositories = repositoryManagers.repositories(org);
+List<Repository> repositories = crawler.repositories(org);
 repositories.each { Repository repo ->
   // fetch a file from the repository
-  String file = repositoryManagers.fileContent(org, repo.name, repo.requestedBranch, "path/to/file.txt")
+  String file = crawler.fileContent(org, repo.name, repo.requestedBranch, "path/to/file.txt")
 }
 ```
 
