@@ -44,6 +44,19 @@ For BitBucket:
 * remember to pass the URL to the API (e.g. `https://api.bitbucket.org`).
 * we support only the 2.0 API.
 
+
+== Adding your own implementation
+
+If you're using some other tool than Github, Gitlab or Bitbucket you can
+write an implementation that integrates with that tool.
+
+We're using the standard, Java `ServiceLoader` mechanism to load any extensions
+and the interface to implement is `org.springframework.cloud.projectcrawler.RepositoryManagementBuilder`.
+
+To do that just create a file called `META-INF/org.springframework.cloud.projectcrawler.RepositoryManagementBuilder`
+that is accessible on classpath. The file should contain a line with fully
+qualified name of your implementation class (e.g. `org.springframework.cloud.projectcrawler.TestRepositoryManagementBuilder`)
+
 TODO:
 
 * Pagination
