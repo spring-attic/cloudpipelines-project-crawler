@@ -10,10 +10,9 @@ image::https://codecov.io/gh/{org}/{repo}/branch/{branch}/graph/badge.svg["codec
 :toclevels: 8
 :nofooter:
 
-== Spring Cloud Repository Management
+== Project Crawler
 
-Small project to iterate over and fetch files from different repository
-management tools like Github, Gitlab, BitBucket
+Small project to iterate over and fetch files from different repository management tools like Github, Gitlab, BitBucket
 
 == Examples
 
