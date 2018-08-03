@@ -112,7 +112,7 @@ class GithubRepositoryManagementTests {
 		Files.write(file.toPath(), "hello: world".getBytes());
 
 		then(new GithubRepositoryManagement(this.github, OptionsBuilder.builder().build()) {
-			@Override InputStream getDescriptor(String org, String repo, String branch,
+			@Override InputStream getFileContent(String org, String repo, String branch,
 					String filePath) throws IOException {
 				return new FileInputStream(file);
 			}

@@ -143,14 +143,14 @@ class GithubRepositoryManagement implements RepositoryManagement {
 	@Override public String fileContent(String org, String repo,
 			String branch, String filePath) {
 		try {
-			boolean descriptorExists = descriptorExists(org, repo, branch, filePath);
+			boolean fileExists = descriptorExists(org, repo, branch, filePath);
 			if (log.isDebugEnabled()) {
-				log.debug("Descriptor [{}] for branch [{}] org [{}] and repo [{}] exists [{}]",
-						filePath, branch, org, repo, descriptorExists);
+				log.debug("File [{}] for branch [{}] org [{}] and repo [{}] exists [{}]",
+						filePath, branch, org, repo, fileExists);
 			}
-			if (descriptorExists) {
+			if (fileExists) {
 				return new java.util.Scanner(
-						getDescriptor(org, repo, branch, filePath))
+						getFileContent(org, repo, branch, filePath))
 						.useDelimiter("\\A").next();
 			}
 			return "";
@@ -159,7 +159,7 @@ class GithubRepositoryManagement implements RepositoryManagement {
 		}
 	}
 
-	InputStream getDescriptor(String org, String repo, String branch,
+	InputStream getFileContent(String org, String repo, String branch,
 			String filePath) throws IOException {
 		return this.github.repos().get(
 				new Coordinates.Simple(org, repo))
