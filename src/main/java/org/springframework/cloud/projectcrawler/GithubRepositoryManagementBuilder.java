@@ -143,19 +143,20 @@ class GithubRepositoryManagement implements RepositoryManagement {
 	@Override public String fileContent(String org, String repo,
 			String branch, String filePath) {
 		try {
-			boolean fileExists = descriptorExists(org, repo, branch, filePath);
+			String content = new java.util.Scanner(
+					getFileContent(org, repo, branch, filePath))
+					.useDelimiter("\\A").next();
 			if (log.isDebugEnabled()) {
-				log.debug("File [{}] for branch [{}] org [{}] and repo [{}] exists [{}]",
-						filePath, branch, org, repo, fileExists);
+				log.debug("File [{}] for branch [{}] org [{}] and repo [{}] exists",
+						filePath, branch, org, repo);
 			}
-			if (fileExists) {
-				return new java.util.Scanner(
-						getFileContent(org, repo, branch, filePath))
-						.useDelimiter("\\A").next();
-			}
-			return "";
+			return content;
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
+		}  catch (Exception e) {
+			log.warn("Exception [{}] occurred when retrieving file [{}] for branch [{}] org [{}] and repo [{}]",
+					e, filePath, branch, org, repo);
+			return "";
 		}
 	}
 
