@@ -1,4 +1,4 @@
-package org.springframework.cloud.projectcrawler;
+package io.cloudpipelines.projectcrawler;
 
 /**
  * @author Marcin Grzejszczak

@@ -1,4 +1,4 @@
-package org.springframework.cloud.projectcrawler;
+package io.cloudpipelines.projectcrawler;
 
 import org.assertj.core.api.BDDAssertions;
 import org.junit.jupiter.api.Test;

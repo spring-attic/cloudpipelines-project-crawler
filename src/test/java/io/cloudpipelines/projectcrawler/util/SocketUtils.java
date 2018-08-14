@@ -1,4 +1,4 @@
-package org.springframework.cloud.projectcrawler.util;
+package io.cloudpipelines.projectcrawler.util;
 
 import java.net.DatagramSocket;
 import java.net.InetAddress;

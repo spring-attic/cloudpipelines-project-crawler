@@ -1,4 +1,4 @@
-package org.springframework.cloud.projectcrawler;
+package io.cloudpipelines.projectcrawler;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.ServiceLoader;
  *
  * You can extend the available list by using the {@link ServiceLoader}
  * and putting the {@link RepositoryManagementBuilder} implementation in the
- * {@code /META-INF/services/org.springframework.cloud.repositorymanagement.RepositoryManagementBuilder} file
+ * {@code /META-INF/services/io.cloudpipelines.projectcrawler.RepositoryManagementBuilder} file
  *
  * @author Marcin Grzejszczak
  * @since 1.0.0

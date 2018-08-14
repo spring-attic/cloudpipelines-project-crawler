@@ -1,4 +1,4 @@
-package org.springframework.cloud.projectcrawler;
+package io.cloudpipelines.projectcrawler;
 
 import java.io.File;
 import java.io.FileInputStream;

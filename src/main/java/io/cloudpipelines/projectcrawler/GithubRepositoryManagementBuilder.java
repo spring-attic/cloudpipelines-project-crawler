@@ -1,4 +1,4 @@
-package org.springframework.cloud.projectcrawler;
+package io.cloudpipelines.projectcrawler;
 
 import java.io.IOException;
 import java.io.InputStream;

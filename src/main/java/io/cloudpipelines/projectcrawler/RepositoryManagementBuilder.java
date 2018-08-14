@@ -1,4 +1,4 @@
-package org.springframework.cloud.projectcrawler;
+package io.cloudpipelines.projectcrawler;
 
 /**
  * Builder for {@link RepositoryManagement}. Might be 
