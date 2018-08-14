@@ -2,6 +2,7 @@ package io.cloudpipelines.projectcrawler;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -102,24 +103,32 @@ class BitbucketRepositoryManagement implements RepositoryManagement {
 
 	@Override public List<Repository> repositories(String org) {
 		try {
-			Response execute = callRepositories(org);
-			ResponseBody body = execute.body();
-			if (execute.code() >= 400) {
-				throw new IllegalStateException("Status code [" + execute.code() + "] and body [" + body
-						+ "]");
+			List<Repository> repositories = new ArrayList<>();
+			Map map = null;
+			int page = 1;
+			while (map == null || map.containsKey("next")) {
+				log.info("Grabbing page [" + page + "]");
+				Response execute = callRepositories(org, page);
+				ResponseBody body = execute.body();
+				if (execute.code() >= 400) {
+					throw new IllegalStateException("Status code [" + execute.code() + "] and body [" + body
+							+ "]");
+				}
+				String response = body != null ? body.string() : "";
+				map = this.objectMapper.readValue(response, Map.class);
+				List<Repository> nonFilteredOutProjects = allNonFilteredOutProjects((List<Map>) map.get("values"));
+				repositories.addAll(addManuallySetProjects(org, nonFilteredOutProjects));
+				page = page + 1;
 			}
-			String response = body != null ? body.string() : "";
-			Map map = this.objectMapper.readValue(response, Map.class);
-			List<Repository> repositories = allNonFilteredOutProjects((List<Map>) map.get("values"));
-			return addManuallySetProjects(org, repositories);
+			return repositories;
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		}
 	}
 
-	Response callRepositories(String org) throws IOException {
+	Response callRepositories(String org, int page) throws IOException {
 		return this.client.newCall(
-				new Request.Builder().get().url(rootUrl() + "repositories/" + org)
+				new Request.Builder().get().url(rootUrl() + "repositories/" + org + "?page=" + page)
 						.build()).execute();
 	}
 

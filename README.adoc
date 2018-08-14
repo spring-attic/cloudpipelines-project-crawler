@@ -56,7 +56,3 @@ and the interface to implement is `RepositoryManagementBuilder`.
 To do that just create a file called `META-INF/io.cloudpipelines.projectcrawler.RepositoryManagementBuilder`
 that is accessible on classpath. The file should contain a line with fully
 qualified name of your implementation class (e.g. `com.example.TestRepositoryManagementBuilder`)
-
-TODO:
-
-* Pagination

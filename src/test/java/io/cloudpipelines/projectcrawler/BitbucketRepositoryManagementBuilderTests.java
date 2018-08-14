@@ -103,7 +103,7 @@ class BitbucketRepositoryManagementBuilderTests {
 		return new BitbucketRepositoryManagementBuilder() {
 			@Override RepositoryManagement createNewRepoManagement(Options options) {
 				return new BitbucketRepositoryManagement(options) {
-					@Override Response callRepositories(String org) throws IOException {
+					@Override Response callRepositories(String org, int page) throws IOException {
 						File file = new File(BitbucketRepositoryManagementBuilderTests.class.getResource("/bitbucket/projects.json").getFile());
 						String body = new String(Files.readAllBytes(file.toPath()));
 						return new Response.Builder()
