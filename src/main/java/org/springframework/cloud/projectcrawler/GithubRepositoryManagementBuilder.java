@@ -153,7 +153,7 @@ class GithubRepositoryManagement implements RepositoryManagement {
 			return content;
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
-		}  catch (Exception e) {
+		}  catch (AssertionError | Exception e) {
 			log.warn("Exception [{}] occurred when retrieving file [{}] for branch [{}] org [{}] and repo [{}]",
 					e, filePath, branch, org, repo);
 			return "";
