@@ -1,5 +1,5 @@
 :jdkversion: 1.8
-:org: spring-cloud
+:org: CloudPipelines
 :repo: project-crawler
 :branch: master
 
