@@ -2,7 +2,6 @@ package io.cloudpipelines.projectcrawler;
 
 import java.util.List;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -45,7 +44,7 @@ class GithubRepositoryManagementBuilderTests {
 	}
 
 	@Test
-	@Ignore
+	@Disabled
 	void should_call_the_real_thing_via_org() {
 		then(new GithubRepositoryManagementBuilder().build(
 				OptionsBuilder.builder()

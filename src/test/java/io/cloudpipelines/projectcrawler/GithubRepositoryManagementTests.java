@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
+import java.util.Collections;
+import java.util.List;
 
 import com.jcabi.github.Repo;
 import com.jcabi.github.Repos;
@@ -50,10 +52,11 @@ class GithubRepositoryManagementTests {
 	void should_return_a_list_of_names_of_repos_for_an_org() {
 		then(new GithubRepositoryManagement(this.github,
 				OptionsBuilder.builder().exclude("^.*github\\.io$").build()) {
-			@Override String orgRepos(String org) throws IOException {
+			@Override List<String> orgRepos(String org) throws IOException {
 				URL resource = GithubRepositoryManagementTests.class
 						.getResource("/spring_cloud_repos.json");
-				return new String(Files.readAllBytes(new File(resource.getFile()).toPath()));
+				return Collections.singletonList(new String(
+						Files.readAllBytes(new File(resource.getFile()).toPath())));
 			}
 		}.repositories("jeff")).hasSize(29)
 				.extracting("name").doesNotContain("spring-cloud.github.io");
@@ -66,10 +69,11 @@ class GithubRepositoryManagementTests {
 						.project("spring-cloud-gdpr")
 						.projectName("spring-cloud-kubernetes-connector", "foo")
 						.exclude("^.*github\\.io$").build()) {
-			@Override String orgRepos(String org) throws IOException {
+			@Override List<String> orgRepos(String org) throws IOException {
 				URL resource = GithubRepositoryManagementTests.class
 						.getResource("/spring_cloud_repos.json");
-				return new String(Files.readAllBytes(new File(resource.getFile()).toPath()));
+				return Collections.singletonList(new String(
+						Files.readAllBytes(new File(resource.getFile()).toPath())));
 			}
 		}.repositories("jeff")).hasSize(30)
 				.extracting("name", "ssh_url", "clone_url")
@@ -90,10 +94,11 @@ class GithubRepositoryManagementTests {
 				OptionsBuilder.builder()
 						.project("spring-cloud-gdpr")
 						.exclude("^.*$").build()) {
-			@Override String orgRepos(String org) throws IOException {
+			@Override List<String> orgRepos(String org) throws IOException {
 				URL resource = GithubRepositoryManagementTests.class
 						.getResource("/spring_cloud_repos.json");
-				return new String(Files.readAllBytes(new File(resource.getFile()).toPath()));
+				return Collections.singletonList(new String(
+						Files.readAllBytes(new File(resource.getFile()).toPath())));
 			}
 		}.repositories("jeff")).hasSize(1)
 				.extracting("name").contains("spring-cloud-gdpr");

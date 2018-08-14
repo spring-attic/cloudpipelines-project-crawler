@@ -2,6 +2,8 @@ package io.cloudpipelines.projectcrawler;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -81,10 +83,22 @@ class GithubRepositoryManagement implements RepositoryManagement {
 
 	@Override public List<Repository> repositories(String org) {
 		try {
-			String response = orgRepos(org);
-			List<Map> map = this.objectMapper.readValue(response, List.class);
+			List<String> responses = orgRepos(org);
+			List<Map> map = responses.stream()
+					.map(this::read)
+					.flatMap(Collection::stream)
+					.collect(Collectors.toList());
 			List<Repository> repositories = allNonFilteredOutProjects(map);
 			return addManuallySetProjects(org, repositories);
+		}
+		catch (IOException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
+	private List<Map> read(String response) {
+		try {
+			return this.objectMapper.readValue(response, List.class);
 		}
 		catch (IOException e) {
 			throw new IllegalStateException(e);
@@ -118,26 +132,45 @@ class GithubRepositoryManagement implements RepositoryManagement {
 		return "https://github.com/" + org + "/" + pb.project + ".git";
 	}
 
-	String orgRepos(String org) throws IOException {
-		Response response = fetchOrgsRepo(org);
-		if (response.status() == 404) {
-			log.warn("Got 404, will assume that org is actually a user");
-			response = fetchUsersRepo(org);
-			if (response.status() >= 400) {
-				throw new IllegalStateException("Status [" + response.status() + "] was returned for orgs and users");
+	List<String> orgRepos(String org) throws IOException {
+		List<String> repos = new ArrayList<>();
+		Response response = null;
+		int page = 1;
+		while (response == null || hasNextLink(response)) {
+			log.info("Grabbing page [" + page + "]");
+			response = fetchOrgsRepo(org, page);
+			if (response.status() == 404) {
+				log.warn("Got 404, will assume that org is actually a user");
+				response = fetchUsersRepo(org, page);
+				if (response.status() >= 400) {
+					throw new IllegalStateException("Status [" + response.status() + "] was returned for orgs and users");
+				}
 			}
+			repos.add(response.body());
+			page = page + 1;
 		}
-		return response.body();
+		return repos;
 	}
 
-	private Response fetchUsersRepo(String org) throws IOException {
-		return this.github.entry().method("GET").uri()
-				.path("users/" + org + "/repos").back().fetch();
+	private boolean hasNextLink(Response response) {
+		List<String> link = response.headers().get("Link");
+		if (link == null || link.isEmpty()) {
+			return false;
+		}
+		return link.get(0).contains("rel=\"next\"");
 	}
 
-	private Response fetchOrgsRepo(String org) throws IOException {
+	private Response fetchUsersRepo(String org, int page) throws IOException {
 		return this.github.entry().method("GET").uri()
-				.path("orgs/" + org + "/repos").back().fetch();
+				.path("users/" + org + "/repos")
+				.queryParam("page", page)
+				.back().fetch();
+	}
+
+	private Response fetchOrgsRepo(String org, int page) throws IOException {
+		return this.github.entry().method("GET").uri()
+				.path("orgs/" + org + "/repos")
+				.queryParam("page", page).back().fetch();
 	}
 
 	@Override public String fileContent(String org, String repo,
