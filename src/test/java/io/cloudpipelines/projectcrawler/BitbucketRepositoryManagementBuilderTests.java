@@ -53,14 +53,14 @@ class BitbucketRepositoryManagementBuilderTests {
 	void should_return_true_when_url_contains_gitlab() {
 		then(builder().build(OptionsBuilder.builder()
 				.token("foo")
-				.rootUrl("http://bitbucket").build())).isNotNull();
+				.rootUrl("https://bitbucket").build())).isNotNull();
 	}
 
 	@Test
 	void should_fetch_the_repos() {
 		then(builder().build(OptionsBuilder.builder()
 				.token("foo")
-				.rootUrl("http://bitbucket").build())
+				.rootUrl("https://bitbucket").build())
 				.repositories("scpipelines")).isNotNull();
 	}
 
@@ -68,7 +68,7 @@ class BitbucketRepositoryManagementBuilderTests {
 	void should_fetch_the_file() {
 		then(builder().build(OptionsBuilder.builder()
 				.token("foo")
-				.rootUrl("http://bitbucket").build())
+				.rootUrl("https://bitbucket").build())
 				.fileContent("scpipelines",
 						"github-webhook", "master", "sc-pipelines.yml")).isNotEmpty();
 	}
@@ -108,7 +108,7 @@ class BitbucketRepositoryManagementBuilderTests {
 						String body = new String(Files.readAllBytes(file.toPath()));
 						return new Response.Builder()
 								.request(new Request.Builder()
-										.url("http://foo.com")
+										.url("http://www.foo.com/")
 										.get()
 										.build())
 								.protocol(Protocol.HTTP_1_1)
