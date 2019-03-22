@@ -40,7 +40,7 @@ class GithubRepositoryManagementBuilderTests {
 	@Test
 	void should_return_true_when_url_contains_github() {
 		then(githubBuilder().build(OptionsBuilder.builder()
-				.rootUrl("http://github").build())).isNotNull();
+				.rootUrl("https://github").build())).isNotNull();
 	}
 
 	@Test
@@ -50,7 +50,7 @@ class GithubRepositoryManagementBuilderTests {
 				OptionsBuilder.builder()
 						.exclude(".*")
 						.project("github-webook")
-						.rootUrl("http://github")
+						.rootUrl("https://github")
 						.build())
 				.repositories("spring-cloud")).isNotNull();
 	}
@@ -62,7 +62,7 @@ class GithubRepositoryManagementBuilderTests {
 				OptionsBuilder.builder()
 						.exclude(".*")
 						.project("github-webook")
-						.rootUrl("http://github")
+						.rootUrl("https://github")
 						.build())
 				.repositories("marcingrzejszczak")).isNotNull();
 	}
@@ -72,7 +72,7 @@ class GithubRepositoryManagementBuilderTests {
 	void should_call_the_real_thing_to_get_a_file() {
 		then(new GithubRepositoryManagementBuilder().build(
 				OptionsBuilder.builder()
-						.rootUrl("http://github")
+						.rootUrl("https://github")
 						.build())
 				.fileContent("marcingrzejszczak",
 						"github-webhook", "master", "sc-pipelines.yml")).isNotNull();

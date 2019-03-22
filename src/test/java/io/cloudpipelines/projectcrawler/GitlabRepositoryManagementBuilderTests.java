@@ -35,7 +35,7 @@ class GitlabRepositoryManagementBuilderTests {
 
 	@Test
 	void should_return_true_when_repositories_is_gitlab_as_enum() {
-		then(builder().build(OptionsBuilder.builder().rootUrl("http://foo.com")
+		then(builder().build(OptionsBuilder.builder().rootUrl("http://www.foo.com/")
 				.username("foo").password("bar")
 				.repository(Repositories.GITLAB).build())).isNotNull();
 	}
@@ -51,7 +51,7 @@ class GitlabRepositoryManagementBuilderTests {
 	void should_return_true_when_url_contains_gitlab() {
 		then(builder().build(OptionsBuilder.builder()
 				.token("foo")
-				.rootUrl("http://gitlab").build())).isNotNull();
+				.rootUrl("https://gitlab").build())).isNotNull();
 	}
 
 	@Test
