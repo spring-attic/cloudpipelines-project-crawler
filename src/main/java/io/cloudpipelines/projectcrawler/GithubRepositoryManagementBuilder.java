@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jcabi.github.Coordinates;
 import com.jcabi.github.Github;
-import com.jcabi.github.MyRtGithub;
+import com.jcabi.github.RtGithub;
 import com.jcabi.http.Response;
 import com.jcabi.http.wire.RetryWire;
 import org.apache.commons.lang3.StringUtils;
@@ -58,7 +58,7 @@ class GithubRepositoryManagement implements RepositoryManagement {
 	private final Options options;
 
 	GithubRepositoryManagement(Options options) {
-		this.github = new MyRtGithub(github(options)
+		this.github = new RtGithub(github(options)
 				.entry().through(RetryWire.class));
 		this.options = options;
 	}
@@ -71,14 +71,14 @@ class GithubRepositoryManagement implements RepositoryManagement {
 	private Github github(Options options) {
 		if (StringUtils.isNotBlank(options.token)) {
 			log.info("Token passed to github client");
-			return new MyRtGithub(options.token);
+			return new RtGithub(options.token);
 		}
 		if (StringUtils.isNotBlank(options.username)) {
 			log.info("Username and password passed to github client");
-			return new MyRtGithub(options.username, options.password);
+			return new RtGithub(options.username, options.password);
 		}
 		log.info("No security passed to github client");
-		return new MyRtGithub();
+		return new RtGithub();
 	}
 
 	@Override public List<Repository> repositories(String org) {
