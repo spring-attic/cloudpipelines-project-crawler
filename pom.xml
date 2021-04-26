@@ -31,7 +31,7 @@
 		<javax.json.version>1.1.4</javax.json.version>
 		<java-gitlab-api.version>4.1.0</java-gitlab-api.version>
 		<okhttp.version>4.2.0</okhttp.version>
-		<commons-io.version>2.6</commons-io.version>
+		<commons-io.version>2.7</commons-io.version>
 		<assertj-core.version>3.13.2</assertj-core.version>
 		<mockito-core.version>3.0.0</mockito-core.version>
 	</properties>
