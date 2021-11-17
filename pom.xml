@@ -26,7 +26,7 @@
 		<logback-classic.version>1.2.3</logback-classic.version>
 		<commons-logging.version>1.2</commons-logging.version>
 		<jackson-core.version>2.9.10</jackson-core.version>
-		<jackson-databind.version>2.9.10.1</jackson-databind.version>
+		<jackson-databind.version>2.9.10.7</jackson-databind.version>
 		<jcabi-github.version>1.0</jcabi-github.version>
 		<javax.json.version>1.1.4</javax.json.version>
 		<java-gitlab-api.version>4.1.0</java-gitlab-api.version>
