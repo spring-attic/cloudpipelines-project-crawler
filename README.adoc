@@ -1,3 +1,5 @@
+# cloudpipelines-project-crawler is no longer actively maintained by VMware, Inc.
+
 :jdkversion: 1.8
 :org: CloudPipelines
 :repo: project-crawler
